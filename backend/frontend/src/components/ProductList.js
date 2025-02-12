@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const ProductList = ({ addToCart }) => {
+const ProductList = ({ addToCart, isLoggedIn }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch products from the backend
     axios
       .get("http://localhost:5000/api/products")
       .then((response) => setProducts(response.data))
@@ -19,18 +18,22 @@ const ProductList = ({ addToCart }) => {
         {products.map((product) => (
           <div key={product._id} style={styles.product}>
             <img
-              src={product.image} // Display product image
+              src={product.image}
               alt={product.name}
               style={styles.productImage}
             />
             <h3 style={styles.productName}>{product.name}</h3>
             <p style={styles.productPrice}>${product.price.toFixed(2)}</p>
-            <button
-              onClick={() => addToCart(product)}
-              style={styles.addToCartButton}
-            >
-              Add to Cart
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={() => addToCart(product)}
+                style={styles.addToCartButton}
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <p style={styles.loginMessage}>Please log in to add to cart.</p>
+            )}
           </div>
         ))}
       </div>
@@ -61,10 +64,6 @@ const styles = {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
   },
-  productHover: {
-    transform: "translateY(-5px)",
-    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
-  },
   productImage: {
     width: "100%",
     height: "200px",
@@ -91,8 +90,9 @@ const styles = {
     cursor: "pointer",
     transition: "background-color 0.3s ease",
   },
-  addToCartButtonHover: {
-    backgroundColor: "#0056b3",
+  loginMessage: {
+    color: "#ff4d4d",
+    fontSize: "1rem",
   },
 };
 

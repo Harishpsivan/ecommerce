@@ -1,6 +1,6 @@
 import React from "react";
 
-const Cart = ({ cart, removeFromCart, updateQuantity }) => {
+const Cart = ({ cart, removeFromCart, updateQuantity, onNavigateToCheckout }) => {
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -29,7 +29,7 @@ const Cart = ({ cart, removeFromCart, updateQuantity }) => {
                 <tr key={item._id} style={styles.tableRow}>
                   <td>
                     <img
-                      src={item.image} // Display product image
+                      src={item.image}
                       alt={item.name}
                       style={styles.cartImage}
                     />
@@ -61,6 +61,9 @@ const Cart = ({ cart, removeFromCart, updateQuantity }) => {
             </tbody>
           </table>
           <h3 style={styles.totalPrice}>Total: ${totalPrice.toFixed(2)}</h3>
+          <button onClick={onNavigateToCheckout} style={styles.checkoutButton}>
+            Proceed to Checkout
+          </button>
         </div>
       )}
     </div>
@@ -115,14 +118,22 @@ const styles = {
     cursor: "pointer",
     transition: "background-color 0.3s ease",
   },
-  removeButtonHover: {
-    backgroundColor: "#cc0000",
-  },
   totalPrice: {
     fontSize: "1.5rem",
     fontWeight: "bold",
     color: "#007bff",
     textAlign: "right",
+  },
+  checkoutButton: {
+    backgroundColor: "#28a745",
+    color: "white",
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "1.1rem",
+    transition: "background-color 0.3s ease",
+    width: "100%",
   },
 };
 

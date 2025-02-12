@@ -1,23 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ isLoggedIn, onLogout }) => {
   return (
     <header style={styles.header}>
       <h1 style={styles.title}>My E-Commerce Store</h1>
       <nav style={styles.nav}>
-        <Link to="/" style={styles.navLink}>
-          Home
+        <Link to="/products" style={styles.navLink}>
+          Products
         </Link>
         <Link to="/cart" style={styles.navLink}>
           Cart
         </Link>
-        <Link to="/login" style={styles.navLink}>
-          Login
-        </Link>
-        <Link to="/register" style={styles.navLink}>
-          Register
-        </Link>
+        {isLoggedIn ? (
+          <button onClick={onLogout} style={styles.logoutButton}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/" style={styles.navLink}>
+            Login
+          </Link>
+        )}
       </nav>
     </header>
   );
@@ -47,8 +50,13 @@ const styles = {
     fontSize: "1.1rem",
     transition: "color 0.3s ease",
   },
-  navLinkHover: {
-    color: "#cce6ff",
+  logoutButton: {
+    backgroundColor: "transparent",
+    border: "none",
+    color: "white",
+    fontSize: "1.1rem",
+    cursor: "pointer",
+    transition: "color 0.3s ease",
   },
 };
 
