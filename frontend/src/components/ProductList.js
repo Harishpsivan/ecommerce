@@ -3,6 +3,7 @@ import axios from "axios";
 
 const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
+  console.log(products)
 
   useEffect(() => {
     // Fetch products from the backend
