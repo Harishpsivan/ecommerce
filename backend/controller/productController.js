@@ -22,4 +22,15 @@ const getAllProducts = async (req, res) => {
   }
 
 
-module.exports = {getAllProducts, getProductById}
+  const uploadProduct = async (req, res) => {
+    try {
+      const {name, price, image} = req.body;
+      const products = await Product.create({name, price, image});
+      res.json(products);
+    } catch (err) {
+      res.status(500).json({ message: "Failed to create Products", error: err });
+    }
+  }
+
+
+module.exports = {getAllProducts, getProductById, uploadProduct}
