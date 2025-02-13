@@ -5,14 +5,14 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = 5000;
+const MONGO_URI="mongodb+srv://user:user@cluster0.mh1ce.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose
-  .connect("mongodb://localhost:27017/ecommerce", {
+mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
