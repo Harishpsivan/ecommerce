@@ -19,7 +19,7 @@ const { email, password } = req.body;
 try {
     const user = await User.findOne({ email, password });
     if (user) {
-    const token =  jwt.sign({isAdmin:user.isAdmin}, process.env.JWT_SECRET);
+    const token =  jwt.sign({id:user._id ,isAdmin:user.isAdmin}, process.env.JWT_SECRET);
     res.status(200).json({ message: "Login successful", token });
     } else {
     res.status(401).json({ message: "Invalid email or password" });
