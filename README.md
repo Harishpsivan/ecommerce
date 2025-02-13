@@ -66,10 +66,10 @@ Please follow these rules to maintain consistency and ensure a smooth workflow:
   ```
   <your-Name><FeatureName>
   Example:
-  - For "Rakshya Niraula" adding email filtering on December 6th:
+  - For "Rakshya Niraula" formating the code:
     ```
     rakshyaFormat
-    ```
+    
 
 ---
 
