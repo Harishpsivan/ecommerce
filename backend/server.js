@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const connectDB = require("./connection.js");
-const User = require("./models/User.js");
-const Product = require("./models/Product.js");
 const productRouter = require("./routes/productRoute.js");
 const userRouter = require("./routes/userRoute.js");
 require('dotenv').config()
