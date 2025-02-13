@@ -1,6 +1,6 @@
 # 🛒 Ecommerce Project
 
-A **full-stack Ecommerce application** built using **React.js**, **Node.js**, **Express.js**, and **MongoDB**.
+A **full-stack Ecommerce application** built using **React.js**, **Node.js**, **Express.js**, and **MongoDB**  following the **MVC (Model-View-Controller)** pattern.
 
 ---
 
