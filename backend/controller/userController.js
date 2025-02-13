@@ -1,4 +1,5 @@
 const User = require("../models/User");
+var jwt = require('jsonwebtoken');
 
 
 const RegisterUser =  async (req, res) => {
@@ -18,7 +19,8 @@ const { email, password } = req.body;
 try {
     const user = await User.findOne({ email, password });
     if (user) {
-    res.json({ message: "Login successful", user });
+    const token =  jwt.sign({isAdmin:user.isAdmin}, process.env.JWT_SECRET);
+    res.status(200).json({ message: "Login successful", token });
     } else {
     res.status(401).json({ message: "Invalid email or password" });
     }
