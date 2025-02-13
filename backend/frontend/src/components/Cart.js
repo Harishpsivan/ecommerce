@@ -78,6 +78,9 @@ const styles = {
     padding: "20px",
     marginTop: "20px",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    maxWidth: "800px", // Set a max width for larger screens
+    marginLeft: "auto", // Center the cart on the page
+    marginRight: "auto",
   },
   heading: {
     fontSize: "2rem",
@@ -118,6 +121,9 @@ const styles = {
     cursor: "pointer",
     transition: "background-color 0.3s ease",
   },
+  removeButtonHover: {
+    backgroundColor: "#c82333", // Darker red for hover
+  },
   totalPrice: {
     fontSize: "1.5rem",
     fontWeight: "bold",
@@ -135,6 +141,40 @@ const styles = {
     transition: "background-color 0.3s ease",
     width: "100%",
   },
+  checkoutButtonHover: {
+    backgroundColor: "#218838", // Darker green for hover
+  },
+};
+
+// Add hover effects using state
+const HoverButton = ({ style, onClick , children }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      style={isHovered ? { ...style, ...styles.removeButtonHover } : style}
+    >
+      {children}
+    </button>
+  );
+};
+
+const CheckoutButton = ({ onClick, children }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      style={isHovered ? { ...styles.checkoutButton, ...styles.checkoutButtonHover } : styles.checkoutButton}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Cart;

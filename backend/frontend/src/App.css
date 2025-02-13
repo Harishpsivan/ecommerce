@@ -3,6 +3,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center; /* Center the products */
+  padding: 20px; /* Add some padding around the product list */
 }
 
 .product {
@@ -10,12 +12,20 @@
   border-radius: 5px;
   padding: 10px;
   text-align: center;
-  width: 200px;
+  width: 100%; /* Make the product take full width on smaller screens */
+  max-width: 250px; /* Set a max width for larger screens */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  transition: transform 0.2s; /* Add a transition for hover effect */
+}
+
+.product:hover {
+  transform: scale(1.05); /* Slightly scale up the product on hover */
 }
 
 .product img {
   max-width: 100%;
   height: auto;
+  border-radius: 5px; /* Add rounded corners to images */
 }
 
 button {
@@ -25,8 +35,29 @@ button {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for button */
 }
 
 button:hover {
   background-color: #218838;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .product {
+    width: 100%; /* Full width on smaller screens */
+    max-width: none; /* Remove max-width for smaller screens */
+  }
+}
+
+@media (min-width: 769px) {
+  .product {
+    width: calc(33.33% - 20px); /* Three products per row on larger screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .product {
+    width: calc(25% - 20px); /* Four products per row on very large screens */
+  }
 }

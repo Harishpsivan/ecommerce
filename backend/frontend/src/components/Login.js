@@ -72,6 +72,9 @@ const styles = {
     marginTop: "20px",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     textAlign: "center",
+    maxWidth: "400px", // Set a max width for larger screens
+    marginLeft: "auto", // Center the login form
+    marginRight: "auto",
   },
   heading: {
     fontSize: "2rem",
@@ -82,7 +85,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-    maxWidth: "300px",
     margin: "0 auto",
   },
   formGroup: {
@@ -123,6 +125,29 @@ const styles = {
     width: "100%",
     marginTop: "10px",
   },
+  // Hover effects
+  submitButtonHover: {
+    backgroundColor: "#0056b3", // Darker blue for hover
+  },
+  secondaryButtonHover: {
+    backgroundColor: "#5a6268", // Darker gray for hover
+  },
+};
+
+// Add hover effects using state
+const HoverButton = ({ style, onClick, children }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      style={isHovered ? { ...style, ...styles.submitButtonHover } : style}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Login;

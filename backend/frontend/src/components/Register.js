@@ -79,11 +79,15 @@ const styles = {
     padding: "20px",
     marginTop: "20px",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    maxWidth: "400px", // Set a max width for larger screens
+    marginLeft: "auto", // Center the register form
+    marginRight: "auto",
   },
   heading: {
     fontSize: "2rem",
     marginBottom: "20px",
     color: "#007bff",
+    textAlign: "center", // Center the heading
   },
   form: {
     display: "flex",
@@ -114,10 +118,27 @@ const styles = {
     cursor: "pointer",
     fontSize: "1.1rem",
     transition: "background-color 0.3s ease",
+    width: "100%", // Make the button full width
   },
-  submitButtonHover: {
-    backgroundColor: "#0056b3",
-  },
+};
+
+// Add hover effect for the submit button
+const HoverButton = ({ style, onClick, children }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      style={{
+        ...style,
+        backgroundColor: isHovered ? "#0056b3" : style.backgroundColor, // Change color on hover
+      }}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Register;

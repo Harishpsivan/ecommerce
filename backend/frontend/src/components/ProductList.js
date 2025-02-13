@@ -25,12 +25,7 @@ const ProductList = ({ addToCart, isLoggedIn }) => {
             <h3 style={styles.productName}>{product.name}</h3>
             <p style={styles.productPrice}>${product.price.toFixed(2)}</p>
             {isLoggedIn ? (
-              <button
-                onClick={() => addToCart(product)}
-                style={styles.addToCartButton}
-              >
-                Add to Cart
-              </button>
+              <AddToCartButton product={product} addToCart={addToCart} />
             ) : (
               <p style={styles.loginMessage}>Please log in to add to cart.</p>
             )}
@@ -41,14 +36,41 @@ const ProductList = ({ addToCart, isLoggedIn }) => {
   );
 };
 
+const AddToCartButton = ({ product, addToCart }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const buttonStyle = {
+    backgroundColor: isHovered ? "#0056b3" : "#007bff", // Change color on hover
+    color: "white",
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  };
+
+  return (
+    <button
+      onClick={() => addToCart(product)}
+      style={buttonStyle}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      Add to Cart
+    </button>
+  );
+};
+
 const styles = {
   productList: {
     marginTop: "20px",
+    padding: "0 20px", // Add horizontal padding for better spacing
   },
   heading: {
     fontSize: "2rem",
     marginBottom: "20px",
     color: "#007bff",
+    textAlign: "center", // Center the heading
   },
   grid: {
     display: "grid",
@@ -81,19 +103,31 @@ const styles = {
     color: "#555",
     marginBottom: "15px",
   },
-  addToCartButton: {
-    backgroundColor: "#007bff",
-    color: "white",
-    border: "none",
-    padding: "10px 20px",
-    borderRadius: "5px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-  },
   loginMessage: {
     color: "#ff4d4d",
     fontSize: "1rem",
   },
+};
+
+// Add hover effect for product cards
+const ProductCard = ({ product }) => {
+  return (
+    <div
+      style={{
+        ...styles.product,
+        transform: "scale(1.02)", // Slightly scale up on hover
+        boxShadow: "0 8px 12px rgba(0, 0, 0, 0.2)", // Increase shadow on hover
+      }}
+    >
+      <img
+        src={product.image}
+        alt={product.name}
+        style={styles.productImage}
+      />
+      <h3 style={styles.productName}>{product.name}</h3>
+      <p style={styles.productPrice}>${product.price.toFixed(2)}</p>
+    </div>
+  );
 };
 
 export default ProductList;

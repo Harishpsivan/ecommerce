@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header = ({ isLoggedIn, onLogout }) => {
   return (
     <header style={styles.header}>
-      <h1 style={styles.title}>My E-Commerce Store</h1>
+      <h1 style={styles.title}>E-Shop</h1>
       <nav style={styles.nav}>
         <Link to="/products" style={styles.navLink}>
           Products
