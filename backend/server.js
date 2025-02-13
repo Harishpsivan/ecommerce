@@ -37,6 +37,9 @@ const Product = mongoose.model("Product", productSchema);
 const User = mongoose.model("User", userSchema);
 
 // API Endpoints
+app.get("/", async (req, res) => {
+  res.status(200).json({ message: "Server is running successfully" });
+});
 
 // Fetch all products
 app.get("/api/products", async (req, res) => {
