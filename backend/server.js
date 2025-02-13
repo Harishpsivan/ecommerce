@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const connectDB = require("./connection.js");
-const mongoose = require("mongoose");
 const User = require("./models/User.js");
 const Product = require("./models/Product.js");
+const productRouter = require("./routes/productRoute.js");
+const userRouter = require("./routes/userRoute.js");
 require('dotenv').config()
 
 const app = express();
@@ -16,49 +17,16 @@ app.use(bodyParser.json());
 
 connectDB();
 
-
-
 // API Endpoints
 app.get("/", async (req, res) => {
   res.status(200).json({ message: "Server is running successfully" });
 });
 
 // Fetch all products
-app.get("/api/products", async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch products", error: err });
-  }
-});
+app.use('/', productRouter)
+app.use('/',userRouter)
 
 // User registration
-app.post("/api/register", async (req, res) => {
-  const { name, email, password } = req.body;
-  try {
-    const user = new User({ name, email, password });
-    await user.save();
-    res.status(201).json({ message: "User registered successfully" });
-  } catch (err) {
-    res.status(500).json({ message: "Failed to register user", error: err });
-  }
-});
-
-// User login
-app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ email, password });
-    if (user) {
-      res.json({ message: "Login successful", user });
-    } else {
-      res.status(401).json({ message: "Invalid email or password" });
-    }
-  } catch (err) {
-    res.status(500).json({ message: "Failed to login", error: err });
-  }
-});
 
 // Start the server
 app.listen(PORT, () => {
