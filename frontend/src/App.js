@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import ProductList from "./components/ProductList";
-import Cart from "./components/Cart";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import ProductList from "./views/ProductList";
+import Cart from "./views/Cart";
+import Login from "./views/Login";
+import Register from "./views/Register";
 import Footer from "./components/Footer";
 import "./styles.css";
 
