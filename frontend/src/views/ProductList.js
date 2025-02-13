@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const ProductList = ({ addToCart }) => {
+const ProductList = ({ addToCart, isLoggedIn }) => {
   const [products, setProducts] = useState([]);
   console.log(products)
 
@@ -26,19 +26,46 @@ const ProductList = ({ addToCart }) => {
             />
             <h3 style={styles.productName}>{product.name}</h3>
             <p style={styles.productPrice}>${product.price.toFixed(2)}</p>
-            <button
-              onClick={() => addToCart(product)}
-              style={styles.addToCartButton}
-            >
-              Add to Cart
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={() => addToCart(product)}
+                style={styles.addToCartButton}
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <p style={styles.loginMessage}>Please log in to add to cart.</p>
+            )}
           </div>
         ))}
       </div>
     </div>
   );
 };
-
+const AddToCartButton = ({ product, addToCart }) => {
+  const [isHovered, setIsHovered] = useState(false);
+ 
+  const buttonStyle = {
+    backgroundColor: isHovered ? "#0056b3" : "#007bff", // Change color on hover
+    color: "white",
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  };
+ 
+  return (
+    <button
+      onClick={() => addToCart(product)}
+      style={buttonStyle}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      Add to Cart
+    </button>
+  );
+};
 const styles = {
   productList: {
     marginTop: "20px",
@@ -62,10 +89,7 @@ const styles = {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
   },
-  productHover: {
-    transform: "translateY(-5px)",
-    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
-  },
+ 
   productImage: {
     width: "100%",
     height: "200px",
@@ -91,9 +115,11 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.3s ease",
+    onhover:""
   },
-  addToCartButtonHover: {
-    backgroundColor: "#0056b3",
+  loginMessage: {
+    color: "#ff4d4d",
+    fontSize: "1rem",
   },
 };
 

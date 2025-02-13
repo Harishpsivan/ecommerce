@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
-const Login = () => {
+const Login = ({ onLogin, onNavigateToRegister, onSkipToProducts }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -16,12 +16,16 @@ const Login = () => {
         password,
       });
       if(response?.status == 200){
-       navigate('/')
+        localStorage.setItem("token", response.data.token);
+        
+        onLogin(); // Call onLogin function from props
+        navigate("/products"); // Redirect to products
       }
       console.log(response.status)
      
 
       alert(response.data.message);
+      
     } catch (error) {
       alert("Failed to login");
     }
@@ -61,6 +65,12 @@ const Login = () => {
           Login
         </button>
       </form>
+      <button onClick={onNavigateToRegister} style={styles.secondaryButton}>
+        Register
+      </button>
+      <button onClick={onSkipToProducts} style={styles.secondaryButton}>
+        Skip to Products
+      </button>
     </div>
   );
 };
@@ -73,6 +83,7 @@ const styles = {
     padding: "20px",
     marginTop: "20px",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    textAlign: "center",
   },
   heading: {
     fontSize: "2rem",
@@ -83,6 +94,8 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
+    maxWidth: "300px",
+    margin: "0 auto",
   },
   formGroup: {
     display: "flex",
@@ -108,9 +121,19 @@ const styles = {
     cursor: "pointer",
     fontSize: "1.1rem",
     transition: "background-color 0.3s ease",
+    width: "100%",
   },
-  submitButtonHover: {
-    backgroundColor: "#0056b3",
+  secondaryButton: {
+    backgroundColor: "#6c757d",
+    color: "white",
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "1.1rem",
+    transition: "background-color 0.3s ease",
+    width: "100%",
+    marginTop: "10px",
   },
 };
 
